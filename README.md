@@ -1,14 +1,15 @@
 # FPS
 
-The tagged release of `ansipixels` also includes a standalone binary, `fps`, that uses that package to test your terminal frames per second capabilities.
-See the source [fps/fps.go](fps/fps.go)
-
-You can get the binary from [releases](https://github.com/fortio/fps/releases)
+The tagged release of [fortio.org/terminal/ansipixels](https://pkg.go.dev/fortio.org/terminal/ansipixels) used to also includes this standalone binary, `fps`, which tests your terminal frames per second capabilities.
 
 > Note:
 > FPS used to be just a directory in [fortio/terminal](https://github.com/fortio/termina/) but had to be broken away
 > to avoid a loop with its use of fortio for stats, and unfortunately the otherwise excellent goreleaser non pro doesn't let
 > you just have a sub go.mod, so I moved it here while preserving the old path thanks to fortio.org meta tags
+
+See the source [fps.go](fps.go)
+
+You can get the binary from [releases](https://github.com/fortio/fps/releases)
 
 Or just run
 ```
