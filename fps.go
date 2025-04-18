@@ -55,6 +55,7 @@ var (
 	}
 	noJSON = flag.Bool("nojson", false,
 		"Don't output json file with results that otherwise get produced and can be visualized with fortio report")
+	exactlyFlag = flag.Int64("n", 0, "Start immediately an FPS test with the specified `number of frames` (default is interactive)")
 )
 
 type Results struct {
@@ -317,12 +318,11 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 	noboxFlag := flag.Bool("nobox", false,
 		"Don't draw the box around the image, make the image full screen instead of 1 pixel less on all sides")
 	imagesOnlyFlag := flag.Bool("i", false, "Arguments are now images files to show, no FPS test (hit any key to continue)")
-	exactlyFlag := flag.Int64("n", 0, "Start immediately an FPS test with the specified `number of frames` (default is interactive)")
 	noMouseFlag := flag.Bool("nomouse", false, "Disable mouse tracking")
 	fireFlag := flag.Bool("fire", false, "Show fire animation instead of RGB around the image")
 	cli.MinArgs = 0
 	cli.MaxArgs = -1
-	cli.ArgsHelp = "[maxfps] or fps -i imagefiles..."
+	cli.ArgsHelp = "[maxfps] or fps -i imagefiles... or fps -http :port"
 	cli.Main()
 	fireMode := *fireFlag
 	fireStr := "no_fire"
@@ -348,6 +348,9 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 		perfResults.hist = stats.NewHistogram(0, .01/fpsLimit)
 	}
 	perfResults.Exactly = *exactlyFlag
+	if *portFlag != "" {
+		return HttpMode(fpsLimit)
+	}
 	perfResults.RequestedQPS = fpsStr
 	perfResults.Version = "fps " + cli.LongVersion
 	ap := ansipixels.NewAnsiPixels(max(25, fpsLimit)) // initial fps for the start screen and/or the image viewer.
