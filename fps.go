@@ -349,7 +349,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 	}
 	perfResults.Exactly = *exactlyFlag
 	if *portFlag != "" {
-		return HttpMode(fpsLimit)
+		return WebMode(fpsLimit)
 	}
 	perfResults.RequestedQPS = fpsStr
 	perfResults.Version = "fps " + cli.LongVersion

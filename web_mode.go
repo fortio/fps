@@ -21,7 +21,7 @@ var (
 	maxIter  int64
 )
 
-func HttpMode(fpsLimit float64) int {
+func WebMode(fpsLimit float64) int {
 	mux, _ := fhttp.HTTPServer("fps", *portFlag)
 	delay = time.Duration(float64(time.Second) / fpsLimit)
 	if delay <= 0 {
