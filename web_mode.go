@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	portFlag = flag.String("http", "", "Port to listen on, eg :3000, empty for normal CLI interactive mode")
+	portFlag = flag.String("http", "", "Listen `port`, eg :3000, empty for normal CLI interactive mode")
 	delay    time.Duration
 	maxIter  int64
 )

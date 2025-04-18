@@ -50,6 +50,14 @@ Hot (!) off the press a new `-fire` mode for fps (with space to toggle on/off an
 
 <img width="1058" alt="FPS Fire mode" src="https://github.com/user-attachments/assets/dae6cfd5-1e6c-4674-808e-93b89cc6f47f">
 
+### Web serving fire mode
+
+There is also now a web mode, using `-http :3000` for instance, serves the doom fire mode on /fire on that port, eg
+
+```bash
+fps -n 100 -http :3000 20 # 20 fps, 100 frames served
+curl localhost:3000/fire  # or add ?colors=256 if the terminal doesn't support truecolor
+```
 
 ### Usage
 
@@ -61,22 +69,29 @@ or 1 of the special arguments
         fps {help|envhelp|version|buildinfo}
 flags:
   -color
-        If your terminal supports color, this will load image in (216) colors instead of monochrome
+        If your terminal supports color, this will load image in (216) colors instead of
+        monochrome (default true)
   -fire
         Show fire animation instead of RGB around the image
   -gray
         Convert the image to grayscale
+  -http port
+        Listen port, eg :3000, empty for normal CLI interactive mode
   -i    Arguments are now images files to show, no FPS test (hit any key to continue)
   -image string
         Image file to display in monochrome in the background instead of the default one
   -n number of frames
-        Start immediately an FPS test with the specified number of frames (default is interactive)
+        Start immediately an FPS test with the specified number of frames (default is
+        interactive)
   -nobox
-        Don't draw the box around the image, make the image full screen instead of 1 pixel less on all sides
+        Don't draw the box around the image, make the image full screen instead of 1
+        pixel less on all sides
   -nojson
-        Don't output json file with results that otherwise get produced and can be visualized with fortio report
+        Don't output json file with results that otherwise get produced and can be
+        visualized with fortio report
   -nomouse
         Disable mouse tracking
   -truecolor
-        If your terminal supports truecolor, this will load image in truecolor (24bits) instead of monochrome (default true)
+        If your terminal supports truecolor, this will load image in truecolor (24bits)
+        instead of monochrome
 ```
