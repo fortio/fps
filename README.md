@@ -59,6 +59,13 @@ fps -n 100 -http :3000 20 # 20 fps, 100 frames served
 curl localhost:3000/fire  # or add ?colors=256 if the terminal doesn't support truecolor
 ```
 
+You can demo it on
+```bash
+curl --compressed https://demo.fortio.org/fire
+# or if your terminal only supports 256 colors (like apple terminal)
+curl --compressed "https://demo.fortio.org/fire?colors=256"
+```
+
 ### Usage
 
 Additional flags/command help:
