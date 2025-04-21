@@ -4,12 +4,12 @@ go 1.23.8
 
 require (
 	fortio.org/cli v1.10.0
-	fortio.org/fortio v1.69.3
+	fortio.org/fortio v1.69.4
 	fortio.org/log v1.17.2
 	fortio.org/progressbar v1.1.0
 	fortio.org/safecast v1.0.0
 	fortio.org/scli v1.16.1
-	fortio.org/terminal v0.31.0
+	fortio.org/terminal v0.32.0
 	github.com/loov/hrtime v1.0.3
 )
 
@@ -17,7 +17,6 @@ require (
 	fortio.org/dflag v1.8.1 // indirect
 	fortio.org/sets v1.3.0 // indirect
 	fortio.org/struct2env v0.4.2 // indirect
-	fortio.org/term v0.29.0-fortio-1 // indirect
 	fortio.org/version v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
@@ -27,5 +26,6 @@ require (
 	golang.org/x/image v0.26.0 // indirect
 	golang.org/x/net v0.39.0 // indirect
 	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/term v0.31.1-0.20250421193057-a809085bff59 // indirect
 	golang.org/x/text v0.24.0 // indirect
 )
