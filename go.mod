@@ -9,7 +9,7 @@ require (
 	fortio.org/progressbar v1.1.0
 	fortio.org/safecast v1.0.0
 	fortio.org/scli v1.16.1
-	fortio.org/terminal v0.37.0
+	fortio.org/terminal v0.38.0
 	github.com/loov/hrtime v1.0.3
 )
 
@@ -23,9 +23,9 @@ require (
 	github.com/kortschak/goroutine v1.1.2 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	golang.org/x/crypto/x509roots/fallback v0.0.0-20250406160420-959f8f3db0fb // indirect
-	golang.org/x/image v0.27.0 // indirect
+	golang.org/x/image v0.29.0 // indirect
 	golang.org/x/net v0.40.0 // indirect
-	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/term v0.32.0 // indirect
-	golang.org/x/text v0.25.0 // indirect
+	golang.org/x/sys v0.34.0 // indirect
+	golang.org/x/term v0.33.0 // indirect
+	golang.org/x/text v0.27.0 // indirect
 )
