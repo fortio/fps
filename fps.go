@@ -19,10 +19,11 @@ import (
 	"fortio.org/safecast"
 	"fortio.org/terminal"
 	"fortio.org/terminal/ansipixels"
+	"fortio.org/terminal/ansipixels/tcolor"
 	"github.com/loov/hrtime" // To test hrtime correctness: hrtime "time".
 )
 
-const defaultMonoImageColor = ansipixels.Blue // ansi blue-ish
+var defaultMonoImageColor = tcolor.Blue.Foreground() // ansi blue-ish
 
 func jsonOutput(jsonFileName string, data any) {
 	var j []byte
@@ -44,7 +45,7 @@ func jsonOutput(jsonFileName string, data any) {
 		log.Fatalf("Close error for %s: %v", jsonFileName, err)
 	}
 	fmt.Printf("Successfully wrote %d bytes of Json data (visualize with %sfortio report%s):\n%s\n",
-		n, ansipixels.Cyan, ansipixels.Reset, jsonFileName)
+		n, tcolor.Cyan.Foreground(), tcolor.Reset, jsonFileName)
 }
 
 var (
@@ -498,9 +499,9 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 			// stats.Record("fps", fps)
 			if !hideText {
 				ap.WriteAt(ap.W/2-20, ap.H/2+2, "%s Last frame %s%v%s FPS: %s%.0f%s Avg %s%.2f%s ",
-					ansipixels.Reset, ansipixels.Green, elapsed.Round(10*time.Microsecond), ansipixels.Reset,
-					ansipixels.BrightRed, fps, ansipixels.Reset,
-					ansipixels.Cyan, perfResults.ActualQPS, ansipixels.Reset)
+					tcolor.Reset, tcolor.Green.Foreground(), elapsed.Round(10*time.Microsecond), tcolor.Reset,
+					tcolor.BrightRed.Foreground(), fps, tcolor.Reset,
+					tcolor.Cyan.Foreground(), perfResults.ActualQPS, tcolor.Reset)
 				ap.WriteAt(ap.W/2-20, ap.H/2+3, " Best %.1f Worst %.1f: %.1f +/- %.1f ",
 					1/perfResults.hist.Min, 1/perfResults.hist.Max, 1/perfResults.hist.Avg(), 1/perfResults.hist.StdDev())
 			}
@@ -513,12 +514,12 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 			if !hideText {
 				invert := ""
 				if ap.Mouse {
-					invert = ansipixels.Reverse
+					invert = tcolor.Inverse
 				}
 				ap.WriteRight(ap.H-1-ap.Margin, " Target %sFPS %s%s%s, %dx%d, typed so far: %s[%s%q%s]%s %sMouse %d,%d (%06b)%s",
-					ansipixels.Cyan, ansipixels.Green, fpsStr, ansipixels.Reset, ap.W, ap.H,
-					ansipixels.DarkGray, ansipixels.Reset, entry, ansipixels.DarkGray, ansipixels.Reset,
-					invert, ap.Mx, ap.My, ap.Mbuttons, ansipixels.Reset)
+					tcolor.Cyan.Foreground(), tcolor.Green.Foreground(), fpsStr, tcolor.Reset, ap.W, ap.H,
+					tcolor.DarkGray.Foreground(), tcolor.Reset, entry, tcolor.DarkGray.Foreground(), tcolor.Reset,
+					invert, ap.Mx, ap.My, ap.Mbuttons, tcolor.Reset)
 			}
 			// Request cursor position (note that FPS is about the same without it, the Flush seems to be enough)
 			_, _, err = ap.ReadCursorPos()
