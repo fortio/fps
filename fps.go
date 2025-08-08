@@ -297,10 +297,7 @@ func setLabels(labels ...string) {
 }
 
 func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if/else are a bit long.
-	defaultTrueColor := false
-	if os.Getenv("COLORTERM") != "" {
-		defaultTrueColor = true
-	}
+	defaultTrueColor := (os.Getenv("COLORTERM") != "")
 	defaultColor := false
 	tenv := os.Getenv("TERM")
 	switch tenv {
