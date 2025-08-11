@@ -23,8 +23,6 @@ import (
 	"github.com/loov/hrtime" // To test hrtime correctness: hrtime "time".
 )
 
-var defaultMonoImageColor = tcolor.Blue.Foreground() // ansi blue-ish
-
 func jsonOutput(jsonFileName string, data any) {
 	var j []byte
 	j, err := json.MarshalIndent(data, "", "  ")
@@ -191,7 +189,7 @@ func imagesViewer(ap *ansipixels.AnsiPixels, imageFiles []string) int { //nolint
 			offsetY = max(-ap.H+1, offsetY)
 			offsetY = min(2*ap.H-1, offsetY)
 			*/
-			e := ap.ShowImage(img, zoom, offsetX, offsetY, defaultMonoImageColor)
+			e := ap.ShowImages(img, zoom, offsetX, offsetY)
 			if showInfo {
 				ap.WriteRight(ap.H-1, "%s", info)
 			}
@@ -297,20 +295,12 @@ func setLabels(labels ...string) {
 }
 
 func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if/else are a bit long.
-	defaultTrueColor := (os.Getenv("COLORTERM") != "")
-	defaultColor := false
-	tenv := os.Getenv("TERM")
-	switch tenv {
-	case "xterm-256color":
-		defaultColor = true
-	case "":
-		tenv = "TERM not set"
-	}
-	perfResults.Destination = tenv
+	cm := ansipixels.DetectColorMode()
+	perfResults.Destination = cm.TermEnv
 	imgFlag := flag.String("image", "", "Image file to display in monochrome in the background instead of the default one")
-	colorFlag := flag.Bool("color", defaultColor,
+	colorFlag := flag.Bool("color", cm.Color256,
 		"If your terminal supports color, this will load image in (216) colors instead of monochrome")
-	trueColorFlag := flag.Bool("truecolor", defaultTrueColor,
+	trueColorFlag := flag.Bool("truecolor", cm.TrueColor,
 		"If your terminal supports truecolor, this will load image in truecolor (24bits) instead of monochrome")
 	grayFlag := flag.Bool("gray", false, "Convert the image to grayscale")
 	noboxFlag := flag.Bool("nobox", false,
@@ -356,7 +346,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 		log.Fatalf("Not a terminal: %v", err)
 	}
 	ap.TrueColor = *trueColorFlag
-	ap.Color = *colorFlag
+	ap.Color256 = *colorFlag
 	ap.Gray = *grayFlag
 	ap.Margin = 1
 	if *noboxFlag || imagesOnly {
@@ -395,7 +385,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 		ap.HideCursor()
 		ap.StartSyncMode()
 		ap.ClearScreen()
-		e := ap.ShowImage(background, 1.0, 0, 0, defaultMonoImageColor)
+		e := ap.ShowImages(background, 1.0, 0, 0)
 		if !imagesOnly {
 			drawBox(ap, true)
 			if fireMode {
@@ -438,7 +428,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 	ap.OnResize = func() error {
 		ap.StartSyncMode()
 		ap.ClearScreen()
-		e := ap.ShowImage(background, 1.0, 0, 0, defaultMonoImageColor)
+		e := ap.ShowImages(background, 1.0, 0, 0)
 		if !imagesOnly {
 			drawBox(ap, false) // no boxed Width x Height in pure fps mode, keeping it simple.
 		}
@@ -446,7 +436,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 		// with max fps expect values in the tens of usec range with usec precision (at max fps for fast terminals)
 		perfResults.hist = stats.NewHistogram(0, 0.0000001)
 		frames = 0
-		setLabels("fps "+strings.TrimSuffix(fpsStr, ".0"), tenv, fmt.Sprintf("%dx%d", ap.W, ap.H), fireStr)
+		setLabels("fps "+strings.TrimSuffix(fpsStr, ".0"), ap.TermEnv, fmt.Sprintf("%dx%d", ap.W, ap.H), fireStr)
 		hideText = false
 		return e
 	}

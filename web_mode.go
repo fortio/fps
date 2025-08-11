@@ -59,7 +59,7 @@ func fpsHandler(w http.ResponseWriter, r *http.Request) {
 	ap := &ansipixels.AnsiPixels{Out: ww}
 	ap.W = 80
 	ap.H = 24
-	ap.Color = true
+	ap.Color256 = true
 	ap.TrueColor = true
 	// check color query param
 	if r.URL.Query().Get("colors") == "256" {
