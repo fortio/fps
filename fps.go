@@ -457,6 +457,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 		tickerChan = sendableTickerChan
 		sendableTickerChan <- perfResults.StartTime
 	}
+	lastMouseStr := ""
 	for {
 		select {
 		case s := <-ap.C:
@@ -501,12 +502,13 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 			if !hideText {
 				invert := ""
 				if ap.Mouse {
+					lastMouseStr = ap.MouseDebugString()
 					invert = tcolor.Inverse
 				}
-				ap.WriteRight(ap.H-1-ap.Margin, " Target %sFPS %s%s%s, %dx%d, typed so far: %s[%s%q%s]%s %sMouse %d,%d (%06b)%s",
+				ap.WriteRight(ap.H-1-ap.Margin, " Target %sFPS %s%s%s, %dx%d, typed so far: %s[%s%q%s]%s %s%sMouse %d,%d (%06b)%s",
 					tcolor.Cyan.Foreground(), tcolor.Green.Foreground(), fpsStr, tcolor.Reset, ap.W, ap.H,
 					tcolor.DarkGray.Foreground(), tcolor.Reset, entry, tcolor.DarkGray.Foreground(), tcolor.Reset,
-					invert, ap.Mx, ap.My, ap.Mbuttons, tcolor.Reset)
+					invert, lastMouseStr, ap.Mx, ap.My, ap.Mbuttons, tcolor.Reset)
 			}
 			// Request cursor position (note that FPS is about the same without it, the Flush seems to be enough)
 			_, _, err = ap.ReadCursorPos()
