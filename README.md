@@ -29,6 +29,8 @@ brew install fortio/tap/fps
 
 Use the `-image` flag to pass a different image to load as background. Or use `-i` and fps is now just a terminal image viewer (in addition to keys, you can now zoom using the mousewheel, click to move the image - see `?` for help).
 
+The image viewer will now (since ansipixels 0.51.0) render transparent image using your terminal background for alpha blending.
+
 Pass an optional `maxfps` as argument.
 
 E.g `fps -image my.jpg 60` will run at 60 fps with `my.jpg` as background.
