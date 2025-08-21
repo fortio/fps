@@ -365,6 +365,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 		if !*noMouseFlag {
 			ap.MouseClickOn()
 		}
+		ap.SyncBackgroundColor()
 		return imagesViewer(ap, flag.Args())
 	}
 	var background *ansipixels.Image
