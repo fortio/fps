@@ -13,6 +13,7 @@ import (
 	"fortio.org/progressbar"
 	"fortio.org/scli"
 	"fortio.org/terminal/ansipixels"
+	"fortio.org/terminal/ansipixels/tcolor"
 )
 
 var (
@@ -29,7 +30,7 @@ func WebMode(fpsLimit float64) int {
 	}
 	maxIter = *exactlyFlag
 	if maxIter <= 1 {
-		return log.FErrf("http mode: -n must be set for  limit must be > 0, got %d", maxIter)
+		return log.FErrf("http mode: -n must be set for iterations must be > 0, got %d", maxIter)
 	}
 	log.Infof("http mode: input fps %.1f -> delay %v; num frames: %d", fpsLimit, delay, maxIter)
 	mux.HandleFunc("GET /fire", log.LogAndCall("fire",
@@ -80,6 +81,7 @@ func fpsHandler(w http.ResponseWriter, r *http.Request) {
 		ap.StartSyncMode()
 		AnimateFire(ap, i)
 		ap.MoveCursor(3, ap.H-1)
+		ap.WriteString(tcolor.Reset)
 		pbar.Progress(float64(100*i) / float64(maxIter))
 		ww.Flush()
 		ap.EndSyncMode()

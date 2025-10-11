@@ -27,11 +27,11 @@ func init() {
 		r := min(255, 3*i)
 		g := min(255, max(0, (i-84)*2))
 		b := min(255, max(0, (i-208)*5))
-		v2colTrueColor[i] = fmt.Sprintf("\033[38;2;%d;%d;%dm█", r, g, b)
+		v2colTrueColor[i] = fmt.Sprintf("\033[48;2;%d;%d;%dm ", r, g, b)
 	}
 	//                          0   1   2   3    4    5    6    7    8    9    10   11
 	for i, color := range []int{16, 52, 88, 124, 166, 202, 208, 214, 220, 226, 228, 231} {
-		v2col256[i] = fmt.Sprintf("\033[38;5;%dm█", color)
+		v2col256[i] = fmt.Sprintf("\033[48;5;%dm ", color)
 	}
 }
 
@@ -67,7 +67,7 @@ func (f *FireState) Start() {
 	f.on = true
 }
 
-// Turn off the fire at the bottom.
+// Off turns off the fire at the bottom.
 func (f *FireState) Off() {
 	for x := range f.w {
 		f.Set(x, f.h-1, 1)
@@ -125,7 +125,7 @@ func (f *FireState) Render(ap *ansipixels.AnsiPixels) {
 				ap.WriteString(newColor)
 				prevColor = newColor
 			} else {
-				ap.WriteRune(ansipixels.FullPixel)
+				_ = ap.Out.WriteByte(' ')
 			}
 		}
 	}
