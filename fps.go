@@ -308,6 +308,8 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 	imagesOnlyFlag := flag.Bool("i", false, "Arguments are now images files to show, no FPS test (hit any key to continue)")
 	noMouseFlag := flag.Bool("nomouse", false, "Disable mouse tracking")
 	fireFlag := flag.Bool("fire", false, "Show fire animation instead of RGB around the image")
+	noTransparencyFlag := flag.Bool("no-transparency", false,
+		"Disable transparency for image viewer (does not sync background color to terminal background color)")
 	cli.MinArgs = 0
 	cli.MaxArgs = -1
 	cli.ArgsHelp = "[maxfps] or fps -i imagefiles... or fps -http :port"
@@ -365,7 +367,9 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 		if !*noMouseFlag {
 			ap.MouseClickOn()
 		}
-		ap.SyncBackgroundColor()
+		if !*noTransparencyFlag {
+			ap.SyncBackgroundColor()
+		}
 		return imagesViewer(ap, flag.Args())
 	}
 	var background *ansipixels.Image
@@ -391,6 +395,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 			drawBox(ap, true)
 			if fireMode {
 				ShowPalette(ap)
+				ap.WriteString(tcolor.Reset)
 			}
 			ap.WriteCentered(ap.H/2+4, "In -fire mode, space bar to toggle on/off; i to hide text")
 			ap.WriteCentered(ap.H/2+3, "FPS %s test... any key to start; q, ^C, or ^D to exit... %s",
@@ -484,6 +489,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 			if fireMode {
 				ap.StartSyncMode()
 				AnimateFire(ap, frames)
+				ap.WriteString(tcolor.Reset)
 			}
 			// stats.Record("fps", fps)
 			if !hideText {
