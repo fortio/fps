@@ -1,10 +1,10 @@
 module fortio.org/terminal/fps
 
-go 1.23.8
+go 1.24.0
 
 require (
 	fortio.org/cli v1.12.2
-	fortio.org/fortio v1.72.0
+	fortio.org/fortio v1.73.0
 	fortio.org/log v1.18.1
 	fortio.org/progressbar v1.1.0
 	fortio.org/safecast v1.2.0
@@ -26,8 +26,8 @@ require (
 	github.com/rivo/uniseg v0.4.7 // indirect
 	golang.org/x/crypto/x509roots/fallback v0.0.0-20250406160420-959f8f3db0fb // indirect
 	golang.org/x/image v0.30.0 // indirect
-	golang.org/x/net v0.43.0 // indirect
-	golang.org/x/sys v0.35.0 // indirect
-	golang.org/x/term v0.34.0 // indirect
-	golang.org/x/text v0.28.0 // indirect
+	golang.org/x/net v0.46.0 // indirect
+	golang.org/x/sys v0.37.0 // indirect
+	golang.org/x/term v0.36.0 // indirect
+	golang.org/x/text v0.30.0 // indirect
 )
