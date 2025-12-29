@@ -4,12 +4,12 @@ go 1.24.0
 
 require (
 	fortio.org/cli v1.12.3
-	fortio.org/fortio v1.73.0
+	fortio.org/fortio v1.73.1
 	fortio.org/log v1.18.3
 	fortio.org/progressbar v1.2.0
 	fortio.org/safecast v1.2.0
 	fortio.org/scli v1.19.0
-	fortio.org/terminal v0.62.0
+	fortio.org/terminal v0.63.0
 	github.com/loov/hrtime v1.0.4
 )
 
@@ -25,9 +25,9 @@ require (
 	github.com/kortschak/goroutine v1.1.3 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	golang.org/x/crypto/x509roots/fallback v0.0.0-20250406160420-959f8f3db0fb // indirect
-	golang.org/x/image v0.33.0 // indirect
-	golang.org/x/net v0.46.0 // indirect
-	golang.org/x/sys v0.38.0 // indirect
-	golang.org/x/term v0.37.0 // indirect
-	golang.org/x/text v0.31.0 // indirect
+	golang.org/x/image v0.34.0 // indirect
+	golang.org/x/net v0.48.0 // indirect
+	golang.org/x/sys v0.39.0 // indirect
+	golang.org/x/term v0.38.0 // indirect
+	golang.org/x/text v0.32.0 // indirect
 )
