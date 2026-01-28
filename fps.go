@@ -52,8 +52,8 @@ var (
 		ResponseLabel: "Frame duration",
 		RetCodes:      make(map[string]int64),
 	}
-	noJSON = flag.Bool("nojson", false,
-		"Don't output json file with results that otherwise get produced and can be visualized with fortio report")
+	DoJSON = flag.Bool("json", false,
+		"Output json file with results that otherwise get produced and can be visualized with fortio report")
 	exactlyFlag = flag.Int64("n", 0, "Start immediately an FPS test with the specified `number of frames` (default is interactive)")
 )
 
@@ -69,7 +69,7 @@ type Results struct {
 
 func main() {
 	ret := Main()
-	if !*noJSON && perfResults.hist != nil && perfResults.hist.Count > 0 {
+	if *DoJSON && perfResults.hist != nil && perfResults.hist.Count > 0 {
 		perfResults.DurationHistogram = perfResults.hist.Export().CalcPercentiles([]float64{50, 75, 90, 99, 99.9})
 		perfResults.RetCodes["OK"] = perfResults.hist.Count
 		perfResults.RunType = "FPS"
@@ -307,6 +307,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 		"Don't draw the box around the image, make the image full screen instead of 1 pixel less on all sides")
 	imagesOnlyFlag := flag.Bool("i", false, "Arguments are now images files to show, no FPS test (hit any key to continue)")
 	noMouseFlag := flag.Bool("nomouse", false, "Disable mouse tracking")
+	noShiftFlag := flag.Bool("no-shift", false, "Disable shift key handling for mouse tracking")
 	fireFlag := flag.Bool("fire", false, "Show fire animation instead of RGB around the image")
 	noTransparencyFlag := flag.Bool("no-transparency", false,
 		"Disable transparency for image viewer (does not sync background color to terminal background color)")
@@ -358,6 +359,7 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 		ap.MoveCursor(0, ap.H-1)
 		ap.MouseTrackingOff()
 		ap.MouseClickOff()
+		ap.MouseShiftOff()
 		ap.Restore() // flushes and shows cursor and resets terminal back to original state.
 	}()
 	// GetSize done in Open (and resize signal handler).
@@ -428,6 +430,9 @@ func Main() int { //nolint:funlen,gocognit,gocyclo,maintidx // color and mode if
 	ap.HideCursor()
 	if !*noMouseFlag {
 		ap.MouseTrackingOn()
+		if !*noShiftFlag {
+			ap.MouseShiftOn()
+		}
 	}
 	var frames int64
 	var hideText bool
