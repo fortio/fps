@@ -44,7 +44,7 @@ Image viewer screenshot:
 
 ![fps image viewer](fps_image_viewer.png)
 
-Detailed statistics are saved in a JSON files and can be visualized or compared by running [fortio report](https://github.com/fortio/fortio#installation)
+Detailed statistics are saved in a JSON files when using `-json` and can be visualized or compared by running [fortio report](https://github.com/fortio/fortio#installation)
 
 ![fps fortio histogram](histogram.png)
 
@@ -89,15 +89,20 @@ flags:
   -i    Arguments are now images files to show, no FPS test (hit any key to continue)
   -image string
         Image file to display in monochrome in the background instead of the default one
+  -json
+        Output json file with results that otherwise get produced and can be visualized
+        with fortio report
   -n number of frames
         Start immediately an FPS test with the specified number of frames (default is
         interactive)
+  -no-shift
+        Disable shift key handling for mouse tracking
+  -no-transparency
+        Disable transparency for image viewer (does not sync background color to terminal
+        background color)
   -nobox
         Don't draw the box around the image, make the image full screen instead of 1
         pixel less on all sides
-  -nojson
-        Don't output json file with results that otherwise get produced and can be
-        visualized with fortio report
   -nomouse
         Disable mouse tracking
   -truecolor
