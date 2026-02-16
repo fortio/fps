@@ -9,7 +9,7 @@ require (
 	fortio.org/progressbar v1.2.0
 	fortio.org/safecast v1.2.0
 	fortio.org/scli v1.19.0
-	fortio.org/terminal v0.63.5
+	fortio.org/terminal v0.64.1
 	github.com/loov/hrtime v1.0.4
 )
 
